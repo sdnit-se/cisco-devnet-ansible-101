@@ -1,0 +1,38 @@
+---
+- name: Test Cisco IOS modules
+  hosts: iosxe
+  gather_facts: no
+
+  tasks:
+    - name: Backup running-config
+      cisco.ios.ios_config:
+        backup: yes
+        backup_options:
+          filename: "{{ inventory_hostname }}-pre.cfg"
+
+    - name: Render a Jinja2 template onto an IOS device
+      cisco.ios.ios_config:
+        src: templates/ios_config.j2
+        diff_against: running
+        backup: no
+      notify: Save config
+
+    - name: Disable DNS lookups
+      cisco.ios.ios_system:
+        lookup_enabled: no
+      notify: Save config
+
+    - name: Set NTP servers in a declarative way
+      cisco.ios.ios_ntp_global:
+        config:
+          servers: "{{ ntp_servers }}"
+        state: replaced
+      notify: Save config
+
+  handlers:
+    - name: Save config
+      cisco.ios.ios_config:
+        save_when: always
+        backup: yes
+        backup_options:
+          filename: "{{ inventory_hostname }}-post.cfg"

@@ -1,0 +1,16 @@
+---
+ansible_user: developer
+ansible_password: C1sco12345
+ansible_network_os: cisco.ios.ios
+ansible_connection: ansible.netcommon.network_cli
+snmp_contact: support@cisco.com
+snmp_community: public
+snmp_host: "169.254.169.254"
+syslog:
+  hosts:
+    - "100.64.1.1"
+    - "100.64.2.2"
+location: Cisco Sandbox
+ntp_servers:
+  - server: 193.182.111.18
+  - server: 162.159.200.123

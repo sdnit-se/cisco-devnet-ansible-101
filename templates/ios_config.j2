@@ -1,0 +1,12 @@
+hostname {{ inventory_hostname }}
+!
+{% for host in syslog.hosts %}
+logging host {{ host }}
+{% endfor %}
+!
+{% if snmp_enabled %}
+snmp-server community {{ snmp_community }} RO
+snmp-server location {{ location }}
+snmp-server contact {{ snmp_contact }}
+snmp-server host {{ snmp_host }} {{ snmp_community }}
+{% endif %}

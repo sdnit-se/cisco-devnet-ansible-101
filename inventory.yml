@@ -1,0 +1,9 @@
+---
+all:
+  children:
+    cisco:
+      children:
+        iosxe:
+          hosts:
+            sandbox-iosxe-latest-1.cisco.com:
+            sandbox-iosxe-recomm-1.cisco.com:
