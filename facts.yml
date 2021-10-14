@@ -1,0 +1,13 @@
+---
+- name: Find model and version
+  hosts: iosxe
+  gather_facts: no
+
+  tasks:
+    - name: Gather IOS facts from device
+      cisco.ios.ios_facts:
+        gather_subset: all
+
+    - name: Print facts
+      ansible.builtin.debug:
+        msg: "The model is {{ ansible_net_model }} and running version {{ ansible_net_version }}"
